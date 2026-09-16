@@ -2,16 +2,16 @@ public class SmartHome {
     private String name;
     private Address address;
     private String securityLevel;
-    private boolean heatingEnabled;
-    private boolean coolingEnabled;
-    private boolean cameraEnabled;
-    private boolean alarmEnabled;
-    private boolean smartLockEnabled;
-    private boolean motionDetectionEnabled;
-    private boolean energyMonitoringEnabled;
+    private boolean enableHeating;
+    private boolean enableCooling;
+    private boolean enableCamera;
+    private boolean enableAlarm;
+    private boolean enableSmartLock;
+    private boolean enableMotionDetection;
+    private boolean enableEnergyMonitoring;
 
     //BUILDER
-    static class Builder{
+    public static class Builder{
         private String name;
         private Address address;
         private String securityLevel;
@@ -92,8 +92,8 @@ public class SmartHome {
             if (securityLevel.equals("high") && !motionDetectionEnabled) {
                 throw new IllegalStateException("The high level security requires enabled motion detection");
             }
-            if (securityLevel.equals("medium") && !smartLockEnabled && !alarmEnabled) {
-                throw new IllegalStateException("The high level security requires enabled smart lock and alarm");
+            if (securityLevel.equals("medium") && (!smartLockEnabled || !alarmEnabled)) {
+                throw new IllegalStateException("The medium level security requires enabled smart lock and alarm");
             }
             if (securityLevel.equals("low") && (cameraEnabled || alarmEnabled ||motionDetectionEnabled)){
                 throw new IllegalStateException("The camera/alarm/motion detection cannot be enabled on low security level");
@@ -108,17 +108,17 @@ public class SmartHome {
     }
 
     //CONSTRUCTOR
-    public SmartHome(String name, Address address, String securityLevel, boolean heatingEnabled, boolean coolingEnabled, boolean cameraEnabled, boolean alarmEnabled, boolean smartLockEnabled, boolean motionDetectionEnabled, boolean energyMonitoringEnabled){
+    public SmartHome(String name, Address address, String securityLevel, boolean enableHeating, boolean enableCooling, boolean enableCamera, boolean enableAlarm, boolean enableSmartLock, boolean enableMotionDetection, boolean enableEnergyMonitoring){
         this.name=name;
         this.address=address;
         this.securityLevel=securityLevel;
-        this.heatingEnabled=heatingEnabled;
-        this.coolingEnabled=coolingEnabled;
-        this.cameraEnabled=cameraEnabled;
-        this.alarmEnabled=alarmEnabled;
-        this.smartLockEnabled=smartLockEnabled;
-        this.motionDetectionEnabled=motionDetectionEnabled;
-        this.energyMonitoringEnabled=energyMonitoringEnabled;
+        this.enableHeating = enableHeating;
+        this.enableCooling = enableCooling;
+        this.enableCamera = enableCamera;
+        this.enableAlarm = enableAlarm;
+        this.enableSmartLock = enableSmartLock;
+        this.enableMotionDetection = enableMotionDetection;
+        this.enableEnergyMonitoring = enableEnergyMonitoring;
     }
     //GETTERS
     public String getName(){
@@ -130,22 +130,22 @@ public class SmartHome {
     public String getSecurityLevel(){
         return securityLevel;
     }
-    public boolean getCoolingEnabled(){
-        return coolingEnabled;
+    public boolean getEnableCooling(){
+        return enableCooling;
     }
-    public boolean getCameraEnabled(){
-        return cameraEnabled;
+    public boolean getEnableCamera(){
+        return enableCamera;
     }
-    public boolean getAlarmEnabled(){
-        return alarmEnabled;
+    public boolean getEnableAlarm(){
+        return enableAlarm;
     }
-    public boolean getSmartLockEnabled(){
-        return smartLockEnabled;
+    public boolean getEnableSmartLock(){
+        return enableSmartLock;
     }
-    public boolean getMotionDetectionEnabled(){
-        return motionDetectionEnabled;
-    }public boolean getEnergyMonitoringEnabled(){
-        return energyMonitoringEnabled;
+    public boolean getEnableMotionDetection(){
+        return enableMotionDetection;
+    }public boolean getEnableEnergyMonitoring(){
+        return enableEnergyMonitoring;
     }
     //SETTERS
     public void setName(String name){
@@ -154,22 +154,22 @@ public class SmartHome {
     public void setSecurityLevel(String securityLevel){
         this.securityLevel=securityLevel;
     }
-    public void setCoolingEnabled(boolean coolingEnabled){
-        this.coolingEnabled=coolingEnabled;
+    public void setEnableCooling(boolean enableCooling){
+        this.enableCooling = enableCooling;
     }
-    public void setCameraEnabled(boolean cameraEnabled){
-        this.cameraEnabled=cameraEnabled;
+    public void setEnableCamera(boolean enableCamera){
+        this.enableCamera = enableCamera;
     }
-    public void setAlarmEnabled(boolean alarmEnabled){
-        this.alarmEnabled=alarmEnabled;
+    public void setEnableAlarm(boolean enableAlarm){
+        this.enableAlarm = enableAlarm;
     }
-    public void setSmartLockEnabled(boolean smartLockEnabled){
-        this.smartLockEnabled=smartLockEnabled;
+    public void setEnableSmartLock(boolean enableSmartLock){
+        this.enableSmartLock = enableSmartLock;
     }
-    public void setMotionDetectionEnabled(boolean motionDetectionEnabled){
-        this.motionDetectionEnabled=motionDetectionEnabled;
+    public void setEnableMotionDetection(boolean enableMotionDetection){
+        this.enableMotionDetection = enableMotionDetection;
     }
-    public void setEnergyMonitoringEnabled(boolean energyMonitoringEnabled){
-        this.energyMonitoringEnabled=energyMonitoringEnabled;
+    public void setEnableEnergyMonitoring(boolean enableEnergyMonitoring){
+        this.enableEnergyMonitoring = enableEnergyMonitoring;
     }
 }

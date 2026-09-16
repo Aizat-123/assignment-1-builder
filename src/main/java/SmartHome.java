@@ -9,6 +9,67 @@ public class SmartHome {
     private boolean smartLockEnabled;
     private boolean motionDetectionEnabled;
     private boolean energyMonitoringEnabled;
+
+    //BUILDER
+    public static class Builder{
+        private String name;
+        private Address address;
+        private String securityLevel;
+        private boolean heatingEnabled;
+        private boolean coolingEnabled;
+        private boolean cameraEnabled;
+        private boolean alarmEnabled;
+        private boolean smartLockEnabled;
+        private boolean motionDetectionEnabled;
+        private boolean energyMonitoringEnabled;
+
+        public Builder name(String name){
+            this.name=name;
+            return this;
+        }
+        public Builder address(Address address){
+            this.address=address;
+            return this;
+        }
+        public Builder securityLevel(String securityLevel){
+            this.securityLevel=securityLevel;
+            return this;
+        }
+        public Builder heatingEnabled(boolean heatingEnabled){
+            this.heatingEnabled=heatingEnabled;
+            return this;
+        }
+        public Builder coolingEnabled(boolean coolingEnabled){
+            this.coolingEnabled=coolingEnabled;
+            return this;
+        }
+        public Builder cameraEnabled(boolean cameraEnabled){
+            this.cameraEnabled=cameraEnabled;
+            return this;
+        }
+        public Builder alarmEnabled(boolean alarmEnabled){
+            this.alarmEnabled=alarmEnabled;
+            return this;
+        }
+        public Builder smartLockEnabled(boolean smartLockEnabled){
+            this.smartLockEnabled=smartLockEnabled;
+            return this;
+        }
+        public Builder motionDetectionEnabled(boolean motionDetectionEnabled){
+            this.motionDetectionEnabled=motionDetectionEnabled;
+            return this;
+        }
+        public Builder energyMonitoringEnabled(boolean energyMonitoringEnabled){
+            this.energyMonitoringEnabled=energyMonitoringEnabled;
+            return this;
+        }
+        public SmartHome build(){
+            return new SmartHome(name,address,securityLevel,heatingEnabled,coolingEnabled,cameraEnabled,alarmEnabled,smartLockEnabled,motionDetectionEnabled,energyMonitoringEnabled);
+        }
+    }
+
+
+
     //CONSTRUCTOR
     public SmartHome(String name, Address address, String securityLevel, boolean heatingEnabled, boolean coolingEnabled, boolean cameraEnabled, boolean alarmEnabled, boolean smartLockEnabled, boolean motionDetectionEnabled, boolean energyMonitoringEnabled){
         this.name=name;

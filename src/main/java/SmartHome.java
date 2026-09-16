@@ -11,7 +11,7 @@ public class SmartHome {
     private boolean energyMonitoringEnabled;
 
     //BUILDER
-    public static class Builder{
+    static class Builder{
         private String name;
         private Address address;
         private String securityLevel;
@@ -64,11 +64,48 @@ public class SmartHome {
             return this;
         }
         public SmartHome build(){
+            validate();
             return new SmartHome(name,address,securityLevel,heatingEnabled,coolingEnabled,cameraEnabled,alarmEnabled,smartLockEnabled,motionDetectionEnabled,energyMonitoringEnabled);
         }
+        private void validate(){
+            if(name==null && name.isBlank()){
+                throw new IllegalStateException("The name of smart home is required");
+            }
+            if(address==null){
+                throw new IllegalStateException("The address of home is required");
+            }
+            if(securityLevel==null && securityLevel.isBlank()){
+                throw new IllegalStateException("The security level is required");
+            }
+            if(!securityLevel.equals("low") && !securityLevel.equals("medium") && !securityLevel.equals("high")){
+                throw new IllegalStateException("The security level must be low/medium/high");
+            }
+            if (securityLevel.equals("high") && !alarmEnabled) {
+                throw new IllegalStateException("The high level security requires enabled alarm");
+            }
+            if (securityLevel.equals("high") && !cameraEnabled) {
+                throw new IllegalStateException("The high level security requires enabled camera");
+            }
+            if (securityLevel.equals("high") && !smartLockEnabled) {
+                throw new IllegalStateException("The high level security requires enabled smart lock");
+            }
+            if (securityLevel.equals("high") && !motionDetectionEnabled) {
+                throw new IllegalStateException("The high level security requires enabled motion detection");
+            }
+            if (securityLevel.equals("medium") && !smartLockEnabled && !alarmEnabled) {
+                throw new IllegalStateException("The high level security requires enabled smart lock and alarm");
+            }
+            if (securityLevel.equals("low") && (cameraEnabled || alarmEnabled ||motionDetectionEnabled)){
+                throw new IllegalStateException("The camera/alarm/motion detection cannot be enabled on low security level");
+            }
+            if(motionDetectionEnabled && !cameraEnabled){
+                throw new IllegalStateException("The enabled motion detection requires an enabled camera");
+            }
+            if(coolingEnabled && heatingEnabled){
+                throw new IllegalStateException("The heating and cooling cannot be enabled at the same time");
+            }
+        }
     }
-
-
 
     //CONSTRUCTOR
     public SmartHome(String name, Address address, String securityLevel, boolean heatingEnabled, boolean coolingEnabled, boolean cameraEnabled, boolean alarmEnabled, boolean smartLockEnabled, boolean motionDetectionEnabled, boolean energyMonitoringEnabled){

@@ -2,7 +2,7 @@ public class SmartHome {
     private String name;
     private Address address;
     private String securityLevel;
-    private boolean enableHeating;
+    private boolean enableHeating ;
     private boolean enableCooling;
     private boolean enableCamera;
     private boolean enableAlarm;
@@ -15,13 +15,16 @@ public class SmartHome {
         private String name;
         private Address address;
         private String securityLevel;
-        private boolean heatingEnabled;
-        private boolean coolingEnabled;
-        private boolean cameraEnabled;
-        private boolean alarmEnabled;
-        private boolean smartLockEnabled;
-        private boolean motionDetectionEnabled;
-        private boolean energyMonitoringEnabled;
+        private boolean enableHeating =false;
+        private boolean enableCooling =false;
+        private boolean enableCamera =false;
+        private boolean enableAlarm =false;
+        private boolean enableSmartLock =false;
+        private boolean enableMotionDetection =false;
+        private boolean enableEnergyMonitoring =false;
+        private final String LOW = "low";
+        private final String MEDIUM = "medium";
+        private final String HIGH = "high";
 
         public Builder name(String name){
             this.name=name;
@@ -35,73 +38,97 @@ public class SmartHome {
             this.securityLevel=securityLevel;
             return this;
         }
-        public Builder heatingEnabled(boolean heatingEnabled){
-            this.heatingEnabled=heatingEnabled;
+        public Builder enableHeating(){
+            this.enableHeating =true;
             return this;
         }
-        public Builder coolingEnabled(boolean coolingEnabled){
-            this.coolingEnabled=coolingEnabled;
+        public Builder enableCooling(){
+            this.enableCooling =true;
             return this;
         }
-        public Builder cameraEnabled(boolean cameraEnabled){
-            this.cameraEnabled=cameraEnabled;
+        public Builder enableCamera(){
+            this.enableCamera =true;
             return this;
         }
-        public Builder alarmEnabled(boolean alarmEnabled){
-            this.alarmEnabled=alarmEnabled;
+        public Builder enableAlarm(){
+            this.enableAlarm =true;
             return this;
         }
-        public Builder smartLockEnabled(boolean smartLockEnabled){
-            this.smartLockEnabled=smartLockEnabled;
+        public Builder enableSmartLock(){
+            this.enableSmartLock =true;
             return this;
         }
-        public Builder motionDetectionEnabled(boolean motionDetectionEnabled){
-            this.motionDetectionEnabled=motionDetectionEnabled;
+        public Builder enableMotionDetector(){
+            this.enableMotionDetection =true;
             return this;
         }
-        public Builder energyMonitoringEnabled(boolean energyMonitoringEnabled){
-            this.energyMonitoringEnabled=energyMonitoringEnabled;
+        public Builder enableEnergyMonitoring(){
+            this.enableEnergyMonitoring =true;
             return this;
         }
         public SmartHome build(){
-            validate();
-            return new SmartHome(name,address,securityLevel,heatingEnabled,coolingEnabled,cameraEnabled,alarmEnabled,smartLockEnabled,motionDetectionEnabled,energyMonitoringEnabled);
+            validateRequiredFields();
+            validateSecurityLevel();
+            validateDevises();
+            validateMediumSecurityLevel();
+            validateLowSecurityLevel();
+            validateHighSecurityLevelEnableAlarm();
+            validateHighSecurityLevelEnableCamera();
+            validateHighSecurityLevelEnableMotionDetection();
+            validateHighSecurityLevelEnableSmartLock();
+            return new SmartHome(name,address,securityLevel, enableHeating, enableCooling, enableCamera, enableAlarm, enableSmartLock, enableMotionDetection, enableEnergyMonitoring);
         }
-        private void validate(){
-            if(name==null && name.isBlank()){
+        private void validateRequiredFields() {
+            if (name == null || name.isBlank()) {
                 throw new IllegalStateException("The name of smart home is required");
             }
-            if(address==null){
+            if (address == null) {
                 throw new IllegalStateException("The address of home is required");
             }
-            if(securityLevel==null && securityLevel.isBlank()){
+            if (securityLevel == null || securityLevel.isBlank()) {
                 throw new IllegalStateException("The security level is required");
             }
-            if(!securityLevel.equals("low") && !securityLevel.equals("medium") && !securityLevel.equals("high")){
+        }
+        private void validateSecurityLevel() {
+            if (!securityLevel.equals(LOW) && !securityLevel.equals(MEDIUM) && !securityLevel.equals(HIGH)) {
                 throw new IllegalStateException("The security level must be low/medium/high");
             }
-            if (securityLevel.equals("high") && !alarmEnabled) {
+        }
+        private void validateHighSecurityLevelEnableAlarm() {
+            if (securityLevel.equals(HIGH) && !enableAlarm) {
                 throw new IllegalStateException("The high level security requires enabled alarm");
             }
-            if (securityLevel.equals("high") && !cameraEnabled) {
+        }
+        private void validateHighSecurityLevelEnableCamera() {
+            if (securityLevel.equals(HIGH) && !enableCamera) {
                 throw new IllegalStateException("The high level security requires enabled camera");
             }
-            if (securityLevel.equals("high") && !smartLockEnabled) {
+        }
+        private void validateHighSecurityLevelEnableSmartLock() {
+            if (securityLevel.equals(HIGH) && !enableSmartLock) {
                 throw new IllegalStateException("The high level security requires enabled smart lock");
             }
-            if (securityLevel.equals("high") && !motionDetectionEnabled) {
+        }
+        private void validateHighSecurityLevelEnableMotionDetection() {
+            if (securityLevel.equals(HIGH) && !enableMotionDetection) {
                 throw new IllegalStateException("The high level security requires enabled motion detection");
             }
-            if (securityLevel.equals("medium") && (!smartLockEnabled || !alarmEnabled)) {
+        }
+        private void validateMediumSecurityLevel() {
+            if (securityLevel.equals(MEDIUM) && (!enableSmartLock || !enableAlarm)) {
                 throw new IllegalStateException("The medium level security requires enabled smart lock and alarm");
             }
-            if (securityLevel.equals("low") && (cameraEnabled || alarmEnabled ||motionDetectionEnabled)){
+        }
+        private void validateLowSecurityLevel(){
+            if (securityLevel.equals(LOW) && (enableCamera || enableAlarm || enableMotionDetection)) {
                 throw new IllegalStateException("The camera/alarm/motion detection cannot be enabled on low security level");
             }
-            if(motionDetectionEnabled && !cameraEnabled){
+        }
+        private void validateDevises(){
+            if(enableMotionDetection && !enableCamera){
                 throw new IllegalStateException("The enabled motion detection requires an enabled camera");
             }
-            if(coolingEnabled && heatingEnabled){
+            if(enableCooling && enableHeating){
                 throw new IllegalStateException("The heating and cooling cannot be enabled at the same time");
             }
         }

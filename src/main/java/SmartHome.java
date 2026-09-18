@@ -1,14 +1,14 @@
 public class SmartHome {
-    private String name;
-    private Address address;
-    private String securityLevel;
-    private boolean enableHeating ;
-    private boolean enableCooling;
-    private boolean enableCamera;
-    private boolean enableAlarm;
-    private boolean enableSmartLock;
-    private boolean enableMotionDetection;
-    private boolean enableEnergyMonitoring;
+    private final String name;
+    private final Address address;
+    private final String securityLevel;
+    private final boolean enableHeating ;
+    private final boolean enableCooling;
+    private final boolean enableCamera;
+    private final boolean enableAlarm;
+    private final boolean enableSmartLock;
+    private final boolean enableMotionDetection;
+    private final boolean enableEnergyMonitoring;
 
     //BUILDER
     public static class Builder{
@@ -135,7 +135,7 @@ public class SmartHome {
     }
 
     //CONSTRUCTOR
-    public SmartHome(String name, Address address, String securityLevel, boolean enableHeating, boolean enableCooling, boolean enableCamera, boolean enableAlarm, boolean enableSmartLock, boolean enableMotionDetection, boolean enableEnergyMonitoring){
+    private SmartHome(String name, Address address, String securityLevel, boolean enableHeating, boolean enableCooling, boolean enableCamera, boolean enableAlarm, boolean enableSmartLock, boolean enableMotionDetection, boolean enableEnergyMonitoring){
         this.name=name;
         this.address=address;
         this.securityLevel=securityLevel;
@@ -173,30 +173,5 @@ public class SmartHome {
         return enableMotionDetection;
     }public boolean getEnableEnergyMonitoring(){
         return enableEnergyMonitoring;
-    }
-    //SETTERS
-    public void setName(String name){
-        this.name=name;
-    }
-    public void setSecurityLevel(String securityLevel){
-        this.securityLevel=securityLevel;
-    }
-    public void setEnableCooling(boolean enableCooling){
-        this.enableCooling = enableCooling;
-    }
-    public void setEnableCamera(boolean enableCamera){
-        this.enableCamera = enableCamera;
-    }
-    public void setEnableAlarm(boolean enableAlarm){
-        this.enableAlarm = enableAlarm;
-    }
-    public void setEnableSmartLock(boolean enableSmartLock){
-        this.enableSmartLock = enableSmartLock;
-    }
-    public void setEnableMotionDetection(boolean enableMotionDetection){
-        this.enableMotionDetection = enableMotionDetection;
-    }
-    public void setEnableEnergyMonitoring(boolean enableEnergyMonitoring){
-        this.enableEnergyMonitoring = enableEnergyMonitoring;
     }
 }

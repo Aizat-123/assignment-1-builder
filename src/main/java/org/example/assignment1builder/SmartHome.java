@@ -1,3 +1,5 @@
+package org.example.assignment1builder;
+
 public class SmartHome {
     private final String name;
     private final Address address;
@@ -76,7 +78,22 @@ public class SmartHome {
             validateHighSecurityLevelEnableCamera();
             validateHighSecurityLevelEnableMotionDetection();
             validateHighSecurityLevelEnableSmartLock();
-            return new SmartHome(name,address,securityLevel, enableHeating, enableCooling, enableCamera, enableAlarm, enableSmartLock, enableMotionDetection, enableEnergyMonitoring);
+            SmartHome smartHome= new SmartHome(name,address,securityLevel, enableHeating, enableCooling, enableCamera, enableAlarm, enableSmartLock, enableMotionDetection, enableEnergyMonitoring);
+            reset();
+            return smartHome;
+        }
+        private void reset() {
+            name = null;
+            address = null;
+            securityLevel = null;
+
+            enableHeating = false;
+            enableCooling = false;
+            enableCamera = false;
+            enableAlarm = false;
+            enableSmartLock = false;
+            enableMotionDetection = false;
+            enableEnergyMonitoring = false;
         }
         private void validateRequiredFields() {
             if (name == null || name.isBlank()) {
@@ -157,6 +174,7 @@ public class SmartHome {
     public String getSecurityLevel(){
         return securityLevel;
     }
+    public boolean getEnableHeating(){return enableHeating;}
     public boolean getEnableCooling(){
         return enableCooling;
     }

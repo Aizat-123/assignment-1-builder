@@ -1,3 +1,5 @@
+package org.example.assignment1builder;
+
 public class Main {
     public static void main(String[] args){
         Address address1= new Address("Almaty", "Nazarbayev", 7);

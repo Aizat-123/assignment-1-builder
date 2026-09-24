@@ -1,3 +1,5 @@
+package org.example.assignment1builder;
+
 public class SmartHomeDirector {
     public SmartHome createBasicHome(String name, Address address){
         return new SmartHome.Builder().name(name).address(address).enableHeating().securityLevel("low").build();

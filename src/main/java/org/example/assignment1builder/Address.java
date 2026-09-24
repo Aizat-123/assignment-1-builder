@@ -1,3 +1,5 @@
+package org.example.assignment1builder;
+
 public class Address {
     private final String city;
     private final String street;

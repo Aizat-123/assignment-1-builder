@@ -1,4 +1,4 @@
-Part E-CLEAN CODE
+Part E - CLEAN CODE
 1. I changed the names of fields to more meaningful names. 
 Before:
     private boolean heatingEnabled;
@@ -207,10 +207,19 @@ Part F - DESIGN DECISION
       construction and potentially create an invalid state. For example, changing the security level without enabling all required devices could 
       violate the configuration rules. Making SmartHome immutable means that the object is fully configured and validated when it is created, 
       and its state cannot be changed afterwards.
-   
-    
-    
-    
-    
-    
-    
+Part H - AUTOMATED TESTING
+    I created 13 automated tests with different purposes:
+        nameIsRequired() — verifies that the home name is required
+        addressIsRequired() — verifies that the address is required
+        securityLevelIsRequired() — verifies that the security level is required
+        securityLevelMustBeValid() — verifies that an unsupported security level such as "super" causes an exception
+        highSecurityRequiresCamera() — verifies that a high-security home cannot be created without a camera.
+        mediumSecurityRequiresSmartLockAndAlarm() — verifies that MEDIUM security requires both a smart lock and an alarm.
+        lowSecurityDoesNotAllowCamera() — verifies that a LOW security level does not allow a camera.
+        motionDetectionRequiresCamera() — verifies the dependency between motion detection and the camera.
+        heatingAndCoolingCannotBeEnabledTogether() — verifies that heating and cooling cannot be enabled at the same time.
+        reusingBuilderDoesNotChangeAlreadyBuiltProduct() — verifies that the same Builder can be reused to create multiple products and that an already-created SmartHome remains unchanged.
+        Three tests verify the predefined configurations created by SmartHomeDirector:
+        basicHomeIsCreatedCorrectly()
+        secureHomeIsCreatedCorrectly()
+        ecoHomeIsCreatedCorrectly()
